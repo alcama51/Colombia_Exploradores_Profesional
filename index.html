@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#153568">
+<meta name="description" content="Colombia Exploradores: plataforma educativa infantil con mapas, voz, juegos y retos de geografía colombiana.">
+<title>Colombia Exploradores | Aprende jugando</title>
+<link rel="preconnect" href="https://unpkg.com"><link rel="preconnect" href="https://tile.openstreetmap.org">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<header class="topbar"><div class="shell top-inner">
+<a class="logo" href="#" aria-label="Colombia Exploradores, inicio"><div class="logo-icon">🧭</div><div><h1>Colombia Exploradores</h1><small>Geografía para mentes curiosas</small></div></a>
+<div class="top-actions"><button class="soft" id="welcomeVoice">🔊 Bienvenida</button><button class="yellow" id="startExplore">Comenzar aventura ↗</button></div>
+</div></header>
+<main class="shell">
+<section class="hero">
+<div class="hero-main"><div class="kicker">Aprender · Explorar · Descubrir</div><h2>¡Tu país está lleno de <span>maravillas!</span></h2><p>Recorre Colombia departamento por departamento. Descubre capitales, naturaleza, cultura y economía; escucha historias, responde retos y consigue insignias mientras aprendes.</p><div class="hero-buttons"><button class="primary" id="startGame">🎯 Jugar un reto</button><button class="soft action-start-explore">🗺️ Explorar el mapa</button></div></div>
+<aside class="hero-side"><div class="guide"><div class="avatar">🦜</div><div><strong>¡Hola, explorador!</strong><small>Yo te acompaño a conocer Colombia. ¿Qué lugar descubrimos hoy?</small></div></div><div class="stat-grid"><div class="stat"><b id="points">0</b><span>⭐ PUNTOS</span></div><div class="stat"><b id="visited">0/33</b><span>🧭 TERRITORIOS VISITADOS</span></div><div class="stat"><b id="correctCount">0</b><span>✅ RESPUESTAS CORRECTAS</span></div><div class="stat"><b id="level">Explorador</b><span>🏅 TU NIVEL</span></div></div></aside>
+</section>
+<nav class="navigation" aria-label="Navegación principal"><button class="nav-btn active" data-view="explora">🗺️ Explora Colombia</button><button class="nav-btn" data-view="juega">🎮 Zona de juegos</button><button class="nav-btn" data-view="progreso">🏆 Mi progreso</button></nav>
+<section class="view active" id="exploraView"><div class="explore-grid">
+<section class="card" id="mapSection"><div class="card-heading"><div><h3>Mapa explorador</h3><p>Selecciona un departamento para descubrirlo.</p></div><span class="pill">COLOMBIA 🇨🇴</span></div>
+<div class="search-row"><input type="search" id="search" placeholder="Buscar departamento o capital..." aria-label="Buscar departamento o capital"><select id="regionFilter" aria-label="Filtrar por región"><option value="">Todas las regiones</option><option>Andina</option><option>Caribe</option><option>Pacífica</option><option>Orinoquía</option><option>Amazonía</option><option>Insular</option></select></div>
+<div class="map-frame"><div id="map"></div><div id="mapFallback" class="map-fallback"><p><strong>Mapa cartográfico no disponible</strong><br>El servicio de mapa no cargó. Puedes continuar con el listado interactivo.</p><div id="fallbackGrid" class="fallback-grid"></div></div></div>
+<div class="map-status" id="mapStatus">Cargando mapa y límites departamentales...</div><div class="legend"><span><i style="background:#74d7bf"></i>Territorio disponible</span><span><i style="background:#ffbd3d"></i>Territorio seleccionado</span><span>Haz clic para explorar</span></div>
+<div class="list-title">Explora por listado</div><div id="departmentList" class="department-grid"></div>
+</section>
+<section class="card"><div class="detail-head"><div><div class="kicker">Ficha de exploración</div><h2 id="detailName">Preparando tu aventura...</h2><div class="capital" id="detailCapital">Selecciona un territorio.</div></div><div class="detail-emoji" id="detailEmoji">🌎</div></div>
+<div class="chips" id="detailChips"></div><div class="voice-controls"><button class="primary" id="speakBtn">🔊 Escuchar ficha</button><button class="soft" id="pauseBtn">⏸ Pausar</button><button class="soft" id="resumeBtn">▶ Continuar</button><button class="coral" id="stopBtn">⏹ Detener</button></div>
+<div class="intro-card"><label>Dato para exploradores</label><p id="detailIntro">Selecciona un departamento para empezar a descubrir sus secretos.</p></div><div class="info-grid" id="detailSections"></div>
+<div class="quiz"><div class="quiz-top"><h3>🎯 Reto relámpago</h3><span class="pill">+10 puntos</span></div><p class="question" id="question">¿Cuál es la capital de Colombia?</p><div class="answer-list" id="answers"></div><div class="feedback" id="feedback" aria-live="polite"></div><div class="quiz-actions"><small>¡Equivocarse también ayuda a aprender!</small><button class="mint" id="nextQuestion">Siguiente reto →</button></div></div>
+</section></div>
+</section>
+<section class="view" id="juegaView"><div class="card"><div class="card-heading"><div><h3>🎮 Zona de juegos</h3><p>Practica, aprende de tus errores y mejora tu puntuación.</p></div><span class="pill">APRENDE JUGANDO</span></div>
+<div class="game-grid" id="activities"><article class="game-card"><div class="icon">🏙️</div><h4>Detective de capitales</h4><p>Lee el nombre de un departamento y descubre cuál es su capital.</p><button class="primary" id="startCapitalGame">Jugar ahora</button></article><article class="game-card"><div class="icon">🔊</div><h4>Escucha y aprende</h4><p>Selecciona un territorio y escucha una ficha con datos sobre su geografía, economía y cultura.</p><button class="soft action-start-explore">Ir al mapa</button></article><article class="game-card"><div class="icon">🧭</div><h4>Exploración libre</h4><p>Visita territorios, gana puntos y desbloquea insignias de explorador.</p><button class="soft action-start-explore">Explorar</button></article></div>
+<div class="quiz" style="margin-top:18px"><div class="quiz-top"><h3>🧠 Reto de capitales</h3><span class="pill">Puntaje automático</span></div><p class="question" id="gameQuestion">Presiona “Otro reto” para comenzar.</p><div class="answer-list" id="gameAnswers"></div><div class="feedback" id="gameFeedback" aria-live="polite"></div><div class="quiz-actions"><small>La respuesta se explica al finalizar.</small><button class="mint" id="gameNext">Otro reto →</button></div></div></div></section>
+<section class="view" id="progresoView"><div class="card"><div class="card-heading"><div><h3>🏆 Mi progreso</h3><p>Cada territorio que descubres te acerca a convertirte en experto.</p></div><span class="pill">TU AVENTURA</span></div>
+<div class="progress-top"><div class="progress-card"><b id="progressPoints">0</b><span>Puntos acumulados</span></div><div class="progress-card"><b id="progressVisited">0/33</b><span>Territorios explorados</span></div><div class="progress-card"><b id="progressAccuracy">0%</b><span>Precisión en retos</span></div><div class="progress-card"><b id="progressLevel">Explorador</b><span>Nivel actual</span></div></div>
+<h3 class="section-label">🧭 Tu mapa de descubrimientos</h3><div class="bar"><span id="visitBar"></span></div><p id="progressText" class="footnote">¡Empieza a explorar!</p>
+<h3 class="section-label">🎖️ Insignias</h3><div class="badge-grid" id="badges"></div><p class="footnote" style="margin-top:18px">El progreso se guarda localmente en este navegador. No se necesita crear una cuenta. Si borras los datos del navegador o cambias de dispositivo, el avance puede perderse.</p><button class="coral" id="resetProgress">Reiniciar progreso</button></div></section>
+<section class="card wide-panel"><div class="card-heading"><div><h3>🌱 Aprende con responsabilidad</h3><p>La geografía cambia y los datos deben consultarse en fuentes confiables.</p></div></div><p class="footnote">Esta plataforma es una versión educativa inicial. Las cifras de población se identifican como datos por verificar porque requieren año y fuente estadística actualizada. Para investigación escolar, consulta DANE, IGAC, DNP, gobernaciones y entidades ambientales oficiales. Bogotá, D. C., aparece diferenciada de los 32 departamentos. El mapa y los límites detallados dependen de servicios públicos externos.</p></section>
+</main>
+<footer class="footer"><div class="shell footer-inner"><div><strong>🧭 Colombia Exploradores</strong><div class="footnote" style="color:#c4d8f7">Una aventura educativa para mentes curiosas.</div></div><div class="footnote" style="color:#c4d8f7">Diseñado para aprender jugando · No recopila datos personales.</div></div></footer>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="assets/app.js"></script>
+</body></html>
